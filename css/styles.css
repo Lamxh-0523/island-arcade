@@ -154,7 +154,7 @@ input:focus-visible {
   border: 1px solid var(--line);
   box-shadow: none;
 }
-.btn.small { padding: 10px 14px; font-size: 13px; min-height: 42px; }
+.btn.small { padding: 10px 14px; font-size: 13px; min-height: 44px; }
 .btn.danger { background: #ffe9ec; color: #b4485c; box-shadow: none; }
 .linkbtn {
   border: 0;
