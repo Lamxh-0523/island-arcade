@@ -71,6 +71,28 @@
         </div>
       </section>
 
+      <section class="fortune" id="fortunePanel" aria-labelledby="fortuneTitle" hidden>
+        <div class="fortune-main">
+          <p class="fortune-kicker" id="fortuneDate">今日运势</p>
+          <h2 id="fortuneTitle">
+            <span class="sr-only">今日运势：</span>
+            <span class="fortune-emoji" id="fortuneEmoji" aria-hidden="true">🍀</span>
+            <span id="fortuneLevel">中吉</span>
+          </h2>
+          <p class="fortune-summary" id="fortuneSummary">正在看看今天的运气……</p>
+          <div class="fortune-meta">
+            <span class="fortune-chip"><span class="fortune-dot" id="fortuneColorDot" aria-hidden="true"></span>幸运色 <b id="fortuneColor">—</b></span>
+            <span class="fortune-chip">🔢 幸运数字 <b id="fortuneNumber">—</b></span>
+            <span class="fortune-chip">⏰ 幸运时段 <b id="fortuneHour">—</b></span>
+            <span class="fortune-chip">🍀 关键词 <b id="fortuneKeyword">—</b></span>
+          </div>
+        </div>
+        <div class="fortune-side">
+          <div class="fortune-stars" id="fortuneStars" role="img" aria-label="幸运指数">★★★★★</div>
+          <button class="btn small" type="button" id="fortuneBtn">查看今日运势 →</button>
+        </div>
+      </section>
+
       <section class="stats" aria-label="我的游戏记录">
         <div class="stat"><small>⭐ 我的星星</small><strong id="stars">0</strong></div>
         <div class="stat"><small>🎮 完成局数</small><strong id="rounds">0</strong></div>
@@ -85,7 +107,7 @@
 
       <section id="games">
         <div class="sectiontitle">
-          <h2>🎮 发现小游戏</h2>
+          <h2 id="gamesTitle" tabindex="-1">🎮 发现小游戏</h2>
           <span class="subtle" id="gameCount">12 款 · 全部免费</span>
         </div>
         <div class="cards" id="cards"></div>
@@ -117,7 +139,7 @@
     <footer class="footer">
       小岛游戏屋 · 独立小游戏体验版　|　
       <button type="button" class="linkbtn" id="privacyBtn">隐私说明</button>
-      　|　仅供娱乐，星星没有现金价值　·　<span class="version" id="appVersion">v3.2.0</span>
+      　|　仅供娱乐，星星没有现金价值　·　<span class="version" id="appVersion">v3.3.0</span>
     </footer>
   </div>
 

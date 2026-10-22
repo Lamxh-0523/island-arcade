@@ -8,6 +8,7 @@ GitHub Pages 直接托管仓库根目录，`index.html` 打开即可运行。
 ## 项目概览
 
 - 小岛游戏屋：12 款中文休闲小游戏（2048、记忆翻牌、反应力、猜数字、打地鼠、石头剪刀布、三连棋、心算、颜色挑战、点点挑战、记忆顺序、找不同）
+- 另有「今日运势」卡片：按本地日期确定性生成，不写存档、不奖励星星
 - 技术栈：原生 HTML + CSS + ES Modules，无运行时依赖、无构建步骤
 - 部署：GitHub Pages（仓库根目录），所有路径必须是相对路径
 - 数据：只存在浏览器 `localStorage`，不联网、不注册、无统计、无广告
@@ -29,8 +30,9 @@ GitHub Pages 直接托管仓库根目录，`index.html` 打开即可运行。
 index.html            页面壳层（导航/Hero/统计/卡片容器/弹窗）
 css/styles.css        设计变量与全部样式
 service-worker.js     预缓存与离线策略
-js/app.js             启动装配：渲染卡片、统计、签到、档案、注册 SW
+js/app.js             启动装配：渲染卡片、统计、运势、签到、档案、注册 SW
 js/core/              基础设施：store / modal / registry / dom / toast
+js/features/          独立功能（今日运势），复用 core 弹窗
 js/games/             十二款游戏 + index.js 游戏清单
 js/logic/             纯逻辑，无 DOM，可直接单测
 tests/                node:test 单元测试
@@ -39,7 +41,8 @@ scripts/serve.mjs     本地静态服务器
 
 允许的依赖方向：
 
-- `app.js` → `core/*`、`games/index.js`、`games/*`
+- `app.js` → `core/*`、`features/*`、`games/index.js`、`games/*`
+- `features/*` → `core/*`、`js/logic/*`
 - `games/*` → `core/registry.js`、`js/logic/*`
 - `core/*` → 只能依赖 `core/*`
 - `logic/*` → 不依赖任何项目模块，不访问 DOM / window / localStorage

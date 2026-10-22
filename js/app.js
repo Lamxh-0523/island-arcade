@@ -2,12 +2,13 @@ import './games/index.js';
 
 import { $, el } from './core/dom.js';
 import { openDialog, openGameDialog } from './core/modal.js';
-import { getGame, getGames } from './core/registry.js';
+import { getGames } from './core/registry.js';
 import { store, todayKey } from './core/store.js';
 import { toast } from './core/toast.js';
+import { setupFortune } from './features/fortune.js';
 
 /** 页面可见版本号：用于确认当前加载的是哪一次部署。 */
-const APP_VERSION = '3.2.0';
+const APP_VERSION = '3.3.0';
 const IOS_HINT_KEY = 'island-ios-hint';
 
 /* -------------------------------------------------------------------------- */
@@ -183,10 +184,23 @@ function openPrivacy() {
 /* 启动                                                                        */
 /* -------------------------------------------------------------------------- */
 
-function setupEvents() {
-  $('#playBtn')?.addEventListener('click', () => {
-    openGameDialog(getGame('2048') ?? getGames()[0]);
+function scrollToGames() {
+  const section = $('#games');
+  const title = $('#gamesTitle');
+  if (!section) return;
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  section.scrollIntoView({
+    behavior: reduceMotion ? 'auto' : 'smooth',
+    block: 'start',
   });
+
+  // 让键盘和读屏用户跟随视觉滚动，下一次 Tab 直接进入游戏卡片
+  title?.focus({ preventScroll: true });
+}
+
+function setupEvents() {
+  $('#playBtn')?.addEventListener('click', scrollToGames);
 
   $('#heroDailyBtn')?.addEventListener('click', claimDaily);
   $('#dailyBtn')?.addEventListener('click', claimDaily);
@@ -273,6 +287,7 @@ function registerServiceWorker() {
 renderCards();
 renderStats();
 renderVersion();
+setupFortune();
 store.subscribe(renderStats);
 setupEvents();
 setupIosHint();
