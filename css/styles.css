@@ -494,6 +494,84 @@ input:focus-visible {
   padding: 8px;
 }
 
+/* ---------- 颜色挑战 ---------- */
+.color-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  max-width: 310px;
+  margin: 18px auto;
+}
+.color-grid button {
+  height: 80px;
+  border: 3px solid #fff;
+  border-radius: 18px;
+  box-shadow: 0 2px 9px #0002;
+}
+
+/* ---------- 点点挑战 ---------- */
+.target-field {
+  height: 290px;
+  max-width: 420px;
+  margin: auto;
+  position: relative;
+  overflow: hidden;
+  background: #f4f1ff;
+  border-radius: 18px;
+}
+.target-dot {
+  position: absolute;
+  width: 65px;
+  height: 65px;
+  border: 0;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 4px 14px #0002;
+  font-size: 32px;
+  touch-action: manipulation;
+}
+
+/* ---------- 记忆顺序 ---------- */
+.sequence-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  max-width: 310px;
+  margin: 22px auto;
+}
+.sequence-pad {
+  height: 120px;
+  border: 0;
+  border-radius: 22px;
+  opacity: .5;
+  transition: opacity .12s ease;
+}
+.sequence-pad:nth-child(1) { background: #ed798c; }
+.sequence-pad:nth-child(2) { background: #71b3ec; }
+.sequence-pad:nth-child(3) { background: #79d5a8; }
+.sequence-pad:nth-child(4) { background: #f6c65c; }
+.sequence-pad.lit {
+  opacity: 1;
+  filter: brightness(1.1);
+  outline: 5px solid #5c5096;
+}
+
+/* ---------- 找不同图案 ---------- */
+.odd-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 9px;
+  max-width: 310px;
+  margin: 15px auto;
+}
+.odd-grid button {
+  height: 86px;
+  font-size: 40px;
+  background: #f6f3ff;
+  border: 1px solid #e6e0f4;
+  border-radius: 14px;
+}
+
 /* ---------- 响应式 ---------- */
 @media (max-width: 760px) {
   .hero { grid-template-columns: 1fr; margin-top: 20px; }

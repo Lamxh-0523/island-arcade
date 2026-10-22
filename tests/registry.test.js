@@ -5,9 +5,22 @@ import test from 'node:test';
 import '../js/games/index.js';
 import { getGame, getGames, registerGame } from '../js/core/registry.js';
 
-const EXPECTED_ORDER = ['2048', 'memory', 'reaction', 'guess', 'mole', 'rps', 'ttt', 'math'];
+const EXPECTED_ORDER = [
+  '2048',
+  'memory',
+  'reaction',
+  'guess',
+  'mole',
+  'rps',
+  'ttt',
+  'math',
+  'color',
+  'target',
+  'sequence',
+  'odd',
+];
 
-test('八款游戏按顺序注册', () => {
+test('十二款游戏按顺序注册', () => {
   assert.deepEqual(getGames().map((game) => game.id), EXPECTED_ORDER);
 });
 

@@ -7,7 +7,7 @@
  * - 发版时修改 CACHE_VERSION 即可清理旧缓存。
  */
 
-const CACHE_VERSION = 'v3';
+const CACHE_VERSION = 'v4';
 const CACHE_NAME = `island-arcade-${CACHE_VERSION}`;
 const NAV_TIMEOUT_MS = 4000;
 
@@ -32,6 +32,10 @@ const CORE_ASSETS = [
   './js/games/rps.js',
   './js/games/ttt.js',
   './js/games/math.js',
+  './js/games/color.js',
+  './js/games/target.js',
+  './js/games/sequence.js',
+  './js/games/odd.js',
   './js/logic/2048.js',
   './js/logic/rps.js',
   './js/logic/ttt.js',

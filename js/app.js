@@ -135,6 +135,10 @@ function openRecords() {
             recordRow('✊ 石头剪刀布最佳', `${state.records.rps} 胜`),
             recordRow('⭕ 三连棋获胜', `${state.records.ttt} 次`),
             recordRow('🧮 心算最佳', `${state.records.math} 题`),
+            recordRow('🎨 颜色挑战最佳', `${state.records.color} 题`),
+            recordRow('🎯 点点挑战最佳', `${state.records.target} 次`),
+            recordRow('🧠 记忆顺序最佳', `${state.records.sequence} 关`),
+            recordRow('🔍 找不同最佳', `${state.records.odd} 题`),
           ),
           el('p', {
             class: 'detail',

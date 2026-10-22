@@ -25,6 +25,10 @@ const KNOWN_RECORDS = Object.freeze({
   rps: 0,      // 石头剪刀布最佳胜场
   ttt: 0,      // 三连棋获胜次数
   math: 0,     // 心算最佳答对数
+  color: 0,    // 颜色挑战最佳答对数
+  target: 0,   // 点点挑战最佳命中
+  sequence: 0, // 记忆顺序最佳关卡
+  odd: 0,      // 找不同最佳答对数
 });
 
 /** @returns {{v:number, stars:number, rounds:number, best:number, daily:string, records:Record<string, number|null>}} */

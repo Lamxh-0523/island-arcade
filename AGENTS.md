@@ -7,7 +7,7 @@ GitHub Pages 直接托管仓库根目录，`index.html` 打开即可运行。
 
 ## 项目概览
 
-- 小岛游戏屋：8 款中文休闲小游戏（2048、记忆翻牌、反应力、猜数字、打地鼠、石头剪刀布、三连棋、心算）
+- 小岛游戏屋：12 款中文休闲小游戏（2048、记忆翻牌、反应力、猜数字、打地鼠、石头剪刀布、三连棋、心算、颜色挑战、点点挑战、记忆顺序、找不同）
 - 技术栈：原生 HTML + CSS + ES Modules，无运行时依赖、无构建步骤
 - 部署：GitHub Pages（仓库根目录），所有路径必须是相对路径
 - 数据：只存在浏览器 `localStorage`，不联网、不注册、无统计、无广告
@@ -31,7 +31,7 @@ css/styles.css        设计变量与全部样式
 service-worker.js     预缓存与离线策略
 js/app.js             启动装配：渲染卡片、统计、签到、档案、注册 SW
 js/core/              基础设施：store / modal / registry / dom / toast
-js/games/             八款游戏 + index.js 游戏清单
+js/games/             十二款游戏 + index.js 游戏清单
 js/logic/             纯逻辑，无 DOM，可直接单测
 tests/                node:test 单元测试
 scripts/serve.mjs     本地静态服务器
@@ -119,7 +119,7 @@ scripts/serve.mjs     本地静态服务器
 
 ### 修改 Service Worker
 
-改完必须验证离线：DevTools → Network → Offline → 刷新，页面、样式、8 张卡片都应正常。
+改完必须验证离线：DevTools → Network → Offline → 刷新，页面、样式、12 张卡片都应正常。
 
 ## 代码风格
 
@@ -134,7 +134,7 @@ scripts/serve.mjs     本地静态服务器
 
 1. `npm test` 全部通过（若新增测试，以实际输出为准）
 2. 改动的 JS 逐个 `node --check`
-3. `npm start` 后手动验证：8 张卡片、每款游戏能开能关、签到、刷新后记录仍在
+3. `npm start` 后手动验证：12 张卡片、每款游戏能开能关、签到、刷新后记录仍在
 4. 如涉及资源/SW：断网刷新仍可用，`CACHE_VERSION` 已递增，`CORE_ASSETS` 无遗漏
 5. `git status` 中没有截图、临时脚本、`node_modules` 等无关文件
 6. 没有破坏 GitHub Pages 子路径部署：所有引用保持 `./` 相对路径

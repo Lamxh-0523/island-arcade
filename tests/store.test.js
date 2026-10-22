@@ -26,6 +26,8 @@ test('初始状态为零', () => {
   assert.equal(store.state.daily, '');
   assert.equal(store.state.records.reaction, null);
   assert.equal(store.state.records.memory, 0);
+  assert.equal(store.state.records.color, 0);
+  assert.equal(store.state.records.sequence, 0);
 });
 
 test('完成一局会累加星星和局数，0 星也计一局', () => {

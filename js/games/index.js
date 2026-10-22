@@ -10,3 +10,7 @@ import './mole.js';
 import './rps.js';
 import './ttt.js';
 import './math.js';
+import './color.js';
+import './target.js';
+import './sequence.js';
+import './odd.js';
