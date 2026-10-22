@@ -1,0 +1,14 @@
+{
+  "name": "island-arcade",
+  "version": "3.0.0",
+  "private": true,
+  "type": "module",
+  "description": "小岛游戏屋：八款免费休闲小游戏 PWA，零依赖、零构建。",
+  "scripts": {
+    "start": "node scripts/serve.mjs",
+    "test": "node --test --test-isolation=none \"tests/*.test.js\""
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

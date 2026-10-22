@@ -4,13 +4,23 @@
   "short_name": "小岛游戏屋",
   "description": "八款免费休闲小游戏，支持离线游玩。",
   "lang": "zh-CN",
+  "dir": "ltr",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
   "orientation": "portrait",
   "background_color": "#f8f6ff",
   "theme_color": "#f8f6ff",
+  "categories": ["games", "entertainment"],
+  "prefer_related_applications": false,
   "icons": [
+    {
+      "src": "./icons/icon-180.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    },
     {
       "src": "./icons/icon-192.png",
       "sizes": "192x192",
