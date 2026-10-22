@@ -1,5 +1,5 @@
 /**
- * 离线缓存策略（v5）
+ * 离线缓存策略（v6）
  *
  * - 导航请求：network-first，4 秒超时回退缓存；fetch 使用 no-store，绕过
  *   GitHub Pages 的 10 分钟 HTTP 缓存，保证刷新即拿到最新 HTML。
@@ -8,7 +8,7 @@
  * - 发版时修改 CACHE_VERSION 即可清理旧缓存。
  */
 
-const CACHE_VERSION = 'v5';
+const CACHE_VERSION = 'v6';
 const CACHE_NAME = `island-arcade-${CACHE_VERSION}`;
 const NAV_TIMEOUT_MS = 4000;
 

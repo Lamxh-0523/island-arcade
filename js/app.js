@@ -7,7 +7,8 @@ import { store, todayKey } from './core/store.js';
 import { toast } from './core/toast.js';
 
 /** 页面可见版本号：用于确认当前加载的是哪一次部署。 */
-const APP_VERSION = '3.1.0';
+const APP_VERSION = '3.2.0';
+const IOS_HINT_KEY = 'island-ios-hint';
 
 /* -------------------------------------------------------------------------- */
 /* 首页渲染                                                                    */
@@ -198,6 +199,50 @@ function renderVersion() {
   if (node) node.textContent = `v${APP_VERSION}`;
 }
 
+function isIosSafari() {
+  const ua = navigator.userAgent;
+  const isIOS =
+    /iPad|iPhone|iPod/.test(ua) ||
+    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  if (!isIOS) return false;
+
+  const standalone =
+    window.navigator.standalone === true ||
+    window.matchMedia('(display-mode: standalone)').matches;
+  if (standalone) return false;
+
+  // Chrome / Firefox / Edge 在 iOS 上也是 WebKit，但没有「添加到主屏幕」
+  return !/CriOS|FxiOS|EdgiOS|OPiOS/.test(ua);
+}
+
+function setupIosHint() {
+  const hint = $('#iosHint');
+  if (!hint || !isIosSafari()) return;
+
+  try {
+    if (sessionStorage.getItem(IOS_HINT_KEY) === 'dismissed') return;
+  } catch {
+    /* 隐私模式下忽略 */
+  }
+
+  hint.hidden = false;
+  $('#iosHintClose')?.addEventListener('click', () => {
+    hint.hidden = true;
+    try {
+      sessionStorage.setItem(IOS_HINT_KEY, 'dismissed');
+    } catch {
+      /* 忽略 */
+    }
+  });
+}
+
+/** 尽量让 iOS 不回收存档；Safari 可能忽略，失败也不影响使用。 */
+function requestPersistentStorage() {
+  if (navigator.storage && typeof navigator.storage.persist === 'function') {
+    navigator.storage.persist().catch(() => {});
+  }
+}
+
 /**
  * 注册 Service Worker。
  * - 首次访问不会打扰用户；
@@ -230,4 +275,6 @@ renderStats();
 renderVersion();
 store.subscribe(renderStats);
 setupEvents();
+setupIosHint();
+requestPersistentStorage();
 registerServiceWorker();

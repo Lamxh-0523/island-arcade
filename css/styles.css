@@ -17,6 +17,8 @@
 
 * { box-sizing: border-box; }
 
+html { -webkit-text-size-adjust: 100%; }
+
 [hidden] { display: none !important; }
 
 body {
@@ -28,11 +30,16 @@ body {
     var(--bg);
   font: 15px/1.6 system-ui, -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
   color: var(--ink);
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior-y: none;
 }
 
 body.modal-open { overflow: hidden; }
 
 button { font: inherit; cursor: pointer; }
+button,
+a,
+.linkbtn { touch-action: manipulation; -webkit-touch-callout: none; }
 button:disabled { opacity: .55; cursor: not-allowed; }
 button:focus-visible,
 a:focus-visible,
@@ -53,11 +60,17 @@ input:focus-visible {
   border: 0;
 }
 
-.wrap { max-width: 1100px; margin: auto; padding: 0 20px; }
+.wrap {
+  max-width: 1100px;
+  margin: auto;
+  padding-left: calc(20px + env(safe-area-inset-left));
+  padding-right: calc(20px + env(safe-area-inset-right));
+}
 
 /* ---------- 顶部导航 ---------- */
 .nav {
-  height: 76px;
+  height: calc(76px + env(safe-area-inset-top));
+  padding-top: env(safe-area-inset-top);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -141,7 +154,7 @@ input:focus-visible {
   border: 1px solid var(--line);
   box-shadow: none;
 }
-.btn.small { padding: 9px 14px; font-size: 13px; }
+.btn.small { padding: 10px 14px; font-size: 13px; min-height: 42px; }
 .btn.danger { background: #ffe9ec; color: #b4485c; box-shadow: none; }
 .linkbtn {
   border: 0;
@@ -193,7 +206,9 @@ input:focus-visible {
   transition: transform .2s ease;
   min-width: 0;
 }
-.gamecard:hover { transform: translateY(-4px); }
+@media (hover: hover) and (pointer: fine) {
+  .gamecard:hover { transform: translateY(-4px); }
+}
 .art {
   height: 148px;
   border-radius: 16px;
@@ -241,9 +256,27 @@ input:focus-visible {
   text-align: center;
   color: var(--muted);
   font-size: 12px;
-  padding: 28px 0 40px;
+  padding: 28px 0 calc(40px + env(safe-area-inset-bottom));
 }
 .footer .version { color: #b0aac2; }
+
+/* ---------- iOS 添加到主屏幕提示 ---------- */
+.ios-hint {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin: 0 0 18px;
+  padding: 14px 16px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  text-align: left;
+}
+.ios-hint p { flex: 1; margin: 0; font-size: 13px; color: #5d5878; }
+.ios-hint strong { color: var(--ink); }
+.ios-hint .ios-icon { flex: none; font-size: 22px; }
+.ios-hint button { flex: none; align-self: center; }
 
 /* ---------- 弹窗 ---------- */
 .overlay {
@@ -253,14 +286,21 @@ input:focus-visible {
   display: none;
   align-items: center;
   justify-content: center;
-  padding: 15px;
+  padding-top: max(15px, env(safe-area-inset-top));
+  padding-right: max(15px, env(safe-area-inset-right));
+  padding-bottom: max(15px, env(safe-area-inset-bottom));
+  padding-left: max(15px, env(safe-area-inset-left));
   z-index: 9;
+  overscroll-behavior: contain;
 }
 .overlay.show { display: flex; }
 .modal {
   width: min(530px, 100%);
+  max-height: 92vh;
   max-height: min(92dvh, 850px);
   overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
   background: #fff;
   border-radius: 25px;
   padding: 20px;
@@ -279,7 +319,9 @@ input:focus-visible {
   border: 0;
   background: #f1effa;
   border-radius: 12px;
-  padding: 7px 13px;
+  padding: 0 13px;
+  min-width: 44px;
+  min-height: 44px;
   font-size: 19px;
 }
 .close:hover { background: #e6e2f8; }
@@ -307,6 +349,7 @@ input:focus-visible {
 }
 .controls button {
   min-width: 50px;
+  min-height: 44px;
   border: 1px solid #ded9ef;
   background: #f7f5ff;
   border-radius: 12px;
@@ -322,7 +365,7 @@ input:focus-visible {
 }
 .toast {
   position: fixed;
-  bottom: 20px;
+  bottom: calc(20px + env(safe-area-inset-bottom));
   left: 50%;
   transform: translateX(-50%);
   background: #302c50;
@@ -580,7 +623,7 @@ input:focus-visible {
   .heroart .island { font-size: 70px; }
   .cards { grid-template-columns: repeat(2, 1fr); }
   .bottom { grid-template-columns: 1fr; }
-  .nav { height: 65px; }
+  .nav { height: calc(65px + env(safe-area-inset-top)); }
   .topchip { font-size: 12px; }
   .stats { gap: 7px; }
   .stat { padding: 12px 9px; }
@@ -590,7 +633,10 @@ input:focus-visible {
 }
 
 @media (max-width: 390px) {
-  .wrap { padding: 0 12px; }
+  .wrap {
+    padding-left: calc(12px + env(safe-area-inset-left));
+    padding-right: calc(12px + env(safe-area-inset-right));
+  }
   .cards { gap: 9px; }
   .gamecard { padding: 8px; }
   .art { height: 105px; }

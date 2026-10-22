@@ -17,6 +17,7 @@
   <meta property="og:image" content="./icons/icon-512.png">
   <meta name="twitter:card" content="summary">
 
+  <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="小岛游戏屋">
@@ -24,6 +25,23 @@
   <link rel="manifest" href="./manifest.json">
   <link rel="icon" href="./icons/icon-192.png" type="image/png">
   <link rel="apple-touch-icon" href="./icons/icon-180.png">
+
+  <!-- iOS 启动图：按设备尺寸匹配，避免从主屏幕启动时白屏 -->
+  <link rel="apple-touch-startup-image" media="(device-width: 440px) and (device-height: 956px) and (-webkit-device-pixel-ratio: 3)" href="./icons/splash-1320x2868.png">
+  <link rel="apple-touch-startup-image" media="(device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3)" href="./icons/splash-1290x2796.png">
+  <link rel="apple-touch-startup-image" media="(device-width: 402px) and (device-height: 874px) and (-webkit-device-pixel-ratio: 3)" href="./icons/splash-1206x2622.png">
+  <link rel="apple-touch-startup-image" media="(device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3)" href="./icons/splash-1179x2556.png">
+  <link rel="apple-touch-startup-image" media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3)" href="./icons/splash-1170x2532.png">
+  <link rel="apple-touch-startup-image" media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3)" href="./icons/splash-1284x2778.png">
+  <link rel="apple-touch-startup-image" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)" href="./icons/splash-1125x2436.png">
+  <link rel="apple-touch-startup-image" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)" href="./icons/splash-1242x2688.png">
+  <link rel="apple-touch-startup-image" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)" href="./icons/splash-828x1792.png">
+  <link rel="apple-touch-startup-image" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)" href="./icons/splash-750x1334.png">
+  <link rel="apple-touch-startup-image" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)" href="./icons/splash-2048x2732.png">
+  <link rel="apple-touch-startup-image" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)" href="./icons/splash-1668x2388.png">
+  <link rel="apple-touch-startup-image" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)" href="./icons/splash-1668x2224.png">
+  <link rel="apple-touch-startup-image" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)" href="./icons/splash-1536x2048.png">
+
   <link rel="stylesheet" href="./css/styles.css">
 </head>
 <body>
@@ -59,6 +77,12 @@
         <div class="stat"><small>🏆 2048 最高分</small><strong id="best">0</strong></div>
       </section>
 
+      <aside class="ios-hint" id="iosHint" hidden>
+        <span class="ios-icon" aria-hidden="true">📲</span>
+        <p><strong>添加到主屏幕</strong>：在 Safari 点「分享」→「添加到主屏幕」，可全屏启动、离线游玩。</p>
+        <button type="button" class="linkbtn" id="iosHintClose">知道了</button>
+      </aside>
+
       <section id="games">
         <div class="sectiontitle">
           <h2>🎮 发现小游戏</h2>
@@ -93,7 +117,7 @@
     <footer class="footer">
       小岛游戏屋 · 独立小游戏体验版　|　
       <button type="button" class="linkbtn" id="privacyBtn">隐私说明</button>
-      　|　仅供娱乐，星星没有现金价值　·　<span class="version" id="appVersion">v3.1.0</span>
+      　|　仅供娱乐，星星没有现金价值　·　<span class="version" id="appVersion">v3.2.0</span>
     </footer>
   </div>
 

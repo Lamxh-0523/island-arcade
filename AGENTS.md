@@ -115,6 +115,8 @@ scripts/serve.mjs     本地静态服务器
 - 颜色、圆角、阴影优先复用 `:root` 变量与现有组件类
 - 断点：760px（平板/手机）、390px（窄屏）
 - `[hidden] { display: none !important; }` 是刻意保留的，防止 `.inline { display:flex }` 覆盖隐藏
+- iOS：使用 `env(safe-area-inset-*)` 留白；按钮最小 44pt；输入框字号 ≥16px 防止聚焦缩放
+- 新增全屏页面或启动图时，同步 `apple-touch-startup-image` 列表与 `icons/splash-*`
 - 不引入外部字体、CDN、CSS 框架
 
 ### 修改 Service Worker
@@ -135,9 +137,10 @@ scripts/serve.mjs     本地静态服务器
 1. `npm test` 全部通过（若新增测试，以实际输出为准）
 2. 改动的 JS 逐个 `node --check`
 3. `npm start` 后手动验证：12 张卡片、每款游戏能开能关、签到、刷新后记录仍在
-4. 如涉及资源/SW：断网刷新仍可用，`CACHE_VERSION` 已递增，`CORE_ASSETS` 无遗漏
-5. `git status` 中没有截图、临时脚本、`node_modules` 等无关文件
-6. 没有破坏 GitHub Pages 子路径部署：所有引用保持 `./` 相对路径
+4. iOS 视口（如 393×852）下检查：安全区不遮挡、安装提示、侧滑返回先关游戏
+5. 如涉及资源/SW：断网刷新仍可用，`CACHE_VERSION` 已递增，`CORE_ASSETS` 无遗漏
+6. `git status` 中没有截图、临时脚本、`node_modules` 等无关文件
+7. 没有破坏 GitHub Pages 子路径部署：所有引用保持 `./` 相对路径
 
 ## 不要做
 
@@ -162,4 +165,5 @@ scripts/serve.mjs     本地静态服务器
 - Windows 上 Git 会提示 `LF will be replaced by CRLF`，属于正常现象，不要批量改行尾
 - 2048 棋盘对读屏软件使用 `aria-hidden`，分数与结果通过 `aria-live` 播报，这是有意简化
 - 弹窗打开时 `#page` 会被设为 `inert` + `aria-hidden`，关闭时由 `modal.js` 恢复，不要在别处手动改
+- 弹窗会 `history.pushState` 一条记录来支持 iOS 侧滑返回；游戏内不要自行操作 `history`
 - 反应力只有刷新个人纪录才给星星，这是防刷分设计，不是 bug

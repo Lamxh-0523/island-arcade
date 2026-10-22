@@ -19,6 +19,8 @@ const FOCUSABLE_SELECTOR = [
 let session = null;
 let sequence = 0;
 let wired = false;
+let historyEntry = false;
+let ignorePop = 0;
 
 /** @param {HTMLElement} container */
 function focusableIn(container) {
@@ -77,6 +79,18 @@ function onKeydown(event) {
 }
 
 document.addEventListener('keydown', onKeydown, true);
+
+// iOS Safari / 微信支持「侧滑返回」：用历史记录承载弹窗，
+// 这样侧滑或按返回键会先关闭游戏，而不是直接离开站点。
+window.addEventListener('popstate', () => {
+  if (ignorePop > 0) {
+    ignorePop -= 1;
+    return;
+  }
+  if (!session) return;
+  historyEntry = false;
+  closeDialog({ restoreFocus: false });
+});
 
 /**
  * 打开一个弹窗。
@@ -154,6 +168,13 @@ export function openDialog({ title, render, variant = '' }) {
   const current = { token, controller, timers, disposers, previousFocus, overlay };
   session = current;
 
+  try {
+    history.pushState({ islandDialog: true }, '');
+    historyEntry = true;
+  } catch {
+    historyEntry = false;
+  }
+
   titleNode.textContent = title;
   body.replaceChildren();
   if (variant) modal.dataset.variant = variant;
@@ -197,6 +218,8 @@ export function closeDialog({ restoreFocus = true } = {}) {
 
   const current = session;
   session = null;
+  const shouldGoBack = historyEntry;
+  historyEntry = false;
 
   current.controller.abort();
   for (const id of current.timers) {
@@ -235,6 +258,15 @@ export function closeDialog({ restoreFocus = true } = {}) {
     } else if (document.activeElement instanceof HTMLElement) {
       // 没有可还原的焦点时，避免焦点留在已隐藏的关闭按钮上
       document.activeElement.blur();
+    }
+  }
+
+  if (shouldGoBack) {
+    ignorePop += 1;
+    try {
+      history.back();
+    } catch {
+      ignorePop -= 1;
     }
   }
 }
