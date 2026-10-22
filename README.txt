@@ -1,8 +1,5 @@
-小岛游戏屋 V2 · 8 款小游戏 PWA
+小岛游戏屋 V2.1 PWA 更新
 
-保留：2048、记忆翻牌、反应力、神秘数字
-新增：打地鼠、石头剪刀布、三连棋、心算挑战
+本版本修正网页缓存策略：联网打开时优先获取最新 HTML，不再需要每次 Ctrl+F5；离线时仍使用缓存页面。
 
-更新方式：解压 ZIP，把 index.html、manifest.json、service-worker.js 和 icons 文件夹上传到 GitHub Pages 仓库根目录，覆盖旧版同名文件。
-更新后：连网重新打开已安装的小岛游戏屋，等待几秒，再退出并重新进入。必要时关闭 PWA 并重新打开。新离线缓存版本为 island-arcade-v2。
-积分储存在本设备 localStorage，原有存档 key 不变。离线广告不可用。
+请将本 ZIP 内全部文件上传并覆盖 GitHub Pages 仓库根目录同名文件，尤其必须替换 service-worker.js。提交后先联网打开网站一次，等待几秒，然后关闭并重新打开主屏幕上的 PWA。
