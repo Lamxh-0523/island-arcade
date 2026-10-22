@@ -243,6 +243,7 @@ input:focus-visible {
   font-size: 12px;
   padding: 28px 0 40px;
 }
+.footer .version { color: #b0aac2; }
 
 /* ---------- 弹窗 ---------- */
 .overlay {

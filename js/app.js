@@ -6,6 +6,9 @@ import { getGame, getGames } from './core/registry.js';
 import { store, todayKey } from './core/store.js';
 import { toast } from './core/toast.js';
 
+/** 页面可见版本号：用于确认当前加载的是哪一次部署。 */
+const APP_VERSION = '3.1.0';
+
 /* -------------------------------------------------------------------------- */
 /* 首页渲染                                                                    */
 /* -------------------------------------------------------------------------- */
@@ -190,6 +193,11 @@ function setupEvents() {
   $('#privacyBtn')?.addEventListener('click', openPrivacy);
 }
 
+function renderVersion() {
+  const node = $('#appVersion');
+  if (node) node.textContent = `v${APP_VERSION}`;
+}
+
 /**
  * 注册 Service Worker。
  * - 首次访问不会打扰用户；
@@ -202,12 +210,14 @@ function registerServiceWorker() {
 
   window.addEventListener('load', async () => {
     try {
-      const registration = await navigator.serviceWorker.register('./service-worker.js');
+      const registration = await navigator.serviceWorker.register('./service-worker.js', {
+        updateViaCache: 'none',
+      });
       registration.update().catch(() => {});
 
       navigator.serviceWorker.addEventListener('controllerchange', () => {
         if (!hadController) return;
-        toast('新版本已就绪，刷新页面即可使用 ✨', 5000);
+        toast('新版本已就绪，刷新页面即可使用 ✨', 8000);
       });
     } catch (error) {
       console.warn('[app] 离线缓存注册失败', error);
@@ -217,6 +227,7 @@ function registerServiceWorker() {
 
 renderCards();
 renderStats();
+renderVersion();
 store.subscribe(renderStats);
 setupEvents();
 registerServiceWorker();

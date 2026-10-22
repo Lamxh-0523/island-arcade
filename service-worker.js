@@ -1,13 +1,14 @@
 /**
- * 离线缓存策略（v3）
+ * 离线缓存策略（v5）
  *
- * - 导航请求：network-first，4 秒超时回退缓存。保证每次打开都是最新 HTML。
- * - 其它同源资源：stale-while-revalidate，先给缓存再后台更新。
+ * - 导航请求：network-first，4 秒超时回退缓存；fetch 使用 no-store，绕过
+ *   GitHub Pages 的 10 分钟 HTTP 缓存，保证刷新即拿到最新 HTML。
+ * - 其它同源资源：stale-while-revalidate，后台更新时同样绕过 HTTP 缓存。
  * - 安装时预缓存全部核心文件，单个失败不会拖垮整个安装。
  * - 发版时修改 CACHE_VERSION 即可清理旧缓存。
  */
 
-const CACHE_VERSION = 'v4';
+const CACHE_VERSION = 'v5';
 const CACHE_NAME = `island-arcade-${CACHE_VERSION}`;
 const NAV_TIMEOUT_MS = 4000;
 
@@ -109,7 +110,10 @@ async function networkFirst(request) {
   const timer = setTimeout(() => controller.abort(), NAV_TIMEOUT_MS);
 
   try {
-    const response = await fetch(request, { signal: controller.signal });
+    const response = await fetch(request, {
+      signal: controller.signal,
+      cache: 'no-store',
+    });
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
     const cache = await caches.open(CACHE_NAME);
@@ -138,7 +142,7 @@ async function staleWhileRevalidate(request) {
   const cache = await caches.open(CACHE_NAME);
   const cached = await cache.match(request);
 
-  const network = fetch(request)
+  const network = fetch(request, { cache: 'no-store' })
     .then(async (response) => {
       if (response && response.ok) await cache.put(request, response.clone());
       return response;
